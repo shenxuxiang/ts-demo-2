@@ -49,7 +49,7 @@ class DigitalAnimate {
     this.element.innerHTML = `${initValue}`;
     this.interval = null;
   }
-
+  // 开始
   public start (cb?: Function) {
     this.interval = window.setTimeout(() => {
       const { value, done } = this.it.next();
@@ -62,7 +62,7 @@ class DigitalAnimate {
       }
     }, this.time);
   }
-
+  // 清除
   public clear() {
     if (this.interval) {
       clearTimeout(this.interval);
