@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    // 指定ECMAScript目标版本。允许的值为“es3”、“es5”、“es6”、“es2015”、“es2016”、“es2017”、“es2018”或“esnext”。
+    "target": "es5",
+    // 指定要包含在编译中的库文件。
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    // 为运行时babel生态系统兼容性提供“……importstar”和“……importdefault”帮助，并为类型系统兼容性启用“——allowSyntheticDefaultImports”。
+    "esModuleInterop": true,
+    // 允许从没有默认导出的模块进行默认导入。这并不影响代码发出，只影响类型查询。
+    "allowSyntheticDefaultImports": true,
+    // 指定模块代码生成:“none”、“commonjs”、“amd”、“system”、“umd”、“es2015”或“esnext”。
+    "module": "esnext",
+    // 允许编译javascript文件。
+    "allowJs": true,
+    // 跳过声明文件的类型检查
+    "skipLibCheck": true,
+    // 启用所有严格的类型检查选项。
+    "strict": true,
+    // 不允许对同一文件使用不一致大小写的引用。
+    "forceConsistentCasingInFileNames": true,
+    // 指定模块解析策略:“node”(node)或“classic”
+    "moduleResolution": "node",
+    // 包含导入的模块。json的扩展。
+    "resolveJsonModule": true,
+    // 无条件地为未解决的文件发出导入。
+    "isolatedModules": true,
+    // 不要发出输出。
+    "noEmit": true,
+    // 指定JSX代码生成:'preserve'、'react'或' reactive -native'。
+    "jsx": "react",
+  },
+  "include": [ // 包含目录
+    "src/**/*.ts",
+    "src/**/*.tsx",
+  ]
+}
