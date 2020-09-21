@@ -9,7 +9,7 @@ type ScrollToPosition = (target: HTMLElement | number, box?: HTMLElement | Windo
 (function() {
   const map: Array<string> = ['webkit', 'moz'];
 
-  for (let i = 0; window.requestAnimationFrame; i++) {
+  for (let i = 0; !window.requestAnimationFrame; i++) {
     const key = `${map[i]}RequestAnimationFrame`;
     const cancelKey = `${map[i]}CancelAnimationFrame`;
     if (key in window) {
@@ -60,7 +60,6 @@ getScrollTop = function(element = window) {
     return (element as HTMLElement).scrollTop;
   }
 };
-
 
 let scrollTopPosition: ScrollToPosition;
 scrollTopPosition = function(target, box = window, speed = 30, timingFunction = 'easeOut') {

@@ -1,6 +1,8 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, createRef, MouseEventHandler } from 'react';
 import scrollToPosition from '../../utils/scrollToPosition';
 import { DigitalAnimate } from '../../utils/numberIterator';
+import HooksComp from '../../components/Hooks';
+
 
 import './index.less';
 interface IProps {
@@ -14,6 +16,7 @@ interface IState {
 export default class Home extends Component<IProps, IState> {
   public mainRef: any;
   public titleRef: any;
+  public handleClick: MouseEventHandler<HTMLDivElement>
 
   public constructor(props: IProps) {
     super(props);
@@ -22,7 +25,7 @@ export default class Home extends Component<IProps, IState> {
     };
     this.mainRef = createRef();
     this.titleRef = createRef();
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClicks.bind(this);
   }
 
   public componentDidMount() {
@@ -30,14 +33,16 @@ export default class Home extends Component<IProps, IState> {
     animate.start();
   }
 
-  public handleClick () {
-    scrollToPosition(0, this.mainRef.current);
+  public handleClicks (event: React.MouseEvent){
+    console.log(event.clientX, event.clientY);
+    scrollToPosition(0, this.mainRef.current, 10);
   }
 
   public render() {
     return (
       <div ref={this.mainRef} className="mt-main" onClick={this.handleClick}>
         <div ref={this.titleRef}>5s</div>
+        <HooksComp text="hello world" />
         <div style={{ height: 300, background: 'green' }}>green</div>
         <div style={{ height: 300, background: 'white' }}>white</div>
         <div style={{ height: 300, background: 'black' }}>black</div>

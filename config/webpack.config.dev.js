@@ -28,6 +28,7 @@ module.exports = {
         ],
         alias: {
             '@static': path.resolve('src/static'),
+            '@components': path.resolve('src/components'),
         },
     },
     optimization: {
