@@ -66,4 +66,3 @@ export {
   isEmpty,
   getSingle
 };
-

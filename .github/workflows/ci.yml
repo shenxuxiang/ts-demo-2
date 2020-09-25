@@ -23,7 +23,7 @@
 
 name: Build & Deploy
 on:
-  push
+  push:
     branches:
     - master
     paths:
