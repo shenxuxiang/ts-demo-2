@@ -21,28 +21,48 @@
 #         FOLDER: dist
 
 
-name: Build & Deploy
-on:
+# name: Build & Deploy
+# on:
+#   push:
+#     branches:
+#     - master
+#     paths:
+#     - "src/**"
+
+# jobs:
+#   build-and-deploy:
+#     name: Build And Deploy
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v1
+
+#     - name: Build
+#       run: npm install && npm run build
+
+#     - name: Deploy
+#       uses: JamesIves/github-pages-deploy-action@releases/v3
+#       with:
+#         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+#         BRANCH: gh-pages
+#         FOLDER: dist
+
+
+name: My Continue Integration
+on: 
   push:
-    branches:
+    branches: 
     - master
-    paths:
-    - "src/**"
+    
+env:
+  SERVER: production
 
 jobs:
-  build-and-deploy:
-    name: Build And Deploy
+  first-job:
+    name: my first job
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-
-    - name: Build
-      run: npm install && npm run build
-
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist
+    - name: Output Context
+      run: echo $SERVER $NAME_ID ${{ github.sha }}
+    env:
+      NAME_ID: sxx_7258615
