@@ -84,5 +84,3 @@ scrollTopPosition = function(target, box = window, speed = 30, timingFunction = 
 };
 
 export default scrollTopPosition;
-
-

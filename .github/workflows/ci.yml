@@ -37,6 +37,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Output Context
-      run: echo str=$SERVER&id=$NAME_ID
+      run: echo "$SERVER_$NAME_ID"
     env:
       NAME_ID: sxx_7258615
