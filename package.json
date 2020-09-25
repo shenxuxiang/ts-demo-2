@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "gh-pages -d dist",
     "build": "webpack --config config/webpack.config.prod.js",
     "start": "webpack-dev-server --config config/webpack.config.dev.js",
     "lint": "eslint --ext .ts,.tsx src/",
