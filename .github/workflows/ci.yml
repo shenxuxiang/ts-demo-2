@@ -21,22 +21,24 @@
 #         FOLDER: dist
 
 
-name: My Continue Integration
-on: 
-  push:
-    branches: 
+name: Build & Deploy
+on:
+  push
+    branches:
     - master
     paths:
-    - 'src/**'
-env:
-  SERVER: production
+    - "src/**"
 
 jobs:
-  first-job:
-    name: my first job
+  build-and-deploy:
+    name: Build And Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Output Context
-      run: echo $SERVER $NAME_ID
-    env:
-      NAME_ID: sxx_7258615
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Build
+      run: npm inistall && npm run build
+
+    - name: Deploy
+      run: npm deploy
