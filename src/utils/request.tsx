@@ -53,3 +53,5 @@ const sendRequest: SendRequest = function(url, query, method = 'GET') {
   })
 }
 export default sendRequest;
+
+
