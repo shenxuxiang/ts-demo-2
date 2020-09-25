@@ -9,7 +9,7 @@
     "lint": "eslint --ext .ts,.tsx src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://shenxuxiang.github.io/ts-demo-2",
+  "homepage": "https://github.com/shenxuxiang/ts-demo-2",
   "keywords": [],
   "author": "",
   "license": "ISC",

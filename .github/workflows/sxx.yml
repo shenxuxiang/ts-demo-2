@@ -1,0 +1,19 @@
+name: My Continue Integration
+on: 
+  push:
+    branches: 
+      - master
+    paths:
+      - 'src/**'
+env:
+  SERVER: production
+
+jobs:
+  first-job:
+    name: my first job
+    runs-on: ubuntu-latest
+    env: 
+      NAME_ID: sxx_7258615
+    steps: 
+      - name: Output String
+      run: echo env=$SERVER&id=$NAME_ID

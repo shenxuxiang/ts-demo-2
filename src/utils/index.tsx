@@ -22,7 +22,6 @@ let isNodeList: IsType = getTypeFunction('NodeList');
 
 let isHTMLCollection: IsType = getTypeFunction('HTMLCollection');
 
-
 /**
  * isEmpty 判断数据是不是为 空 | undefined | null
 */
