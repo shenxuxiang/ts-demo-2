@@ -13,7 +13,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const { PUBLIC_PATH } = raw;
-console.log(stringified, PUBLIC_PATH)
 module.exports = {
     mode: 'production',
     entry: path.resolve('src/index.tsx'),
