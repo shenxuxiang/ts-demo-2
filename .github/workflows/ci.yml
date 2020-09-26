@@ -73,3 +73,14 @@ jobs:
         asset_path: ./release.gz
         asset_name: release.gz
         asset_content_type: application/gz
+
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER_NAME }}
+        key: ${{ secrets.JERRY_SERVER }}
+        port: 22
+        script: |
+          cd /root/www
+          tar zxvf release.gz
