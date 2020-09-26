@@ -82,5 +82,5 @@ jobs:
         password: ${{ secrets.PASS_WORD }}
         port: 22
         script: |
-          cd /app
+          cd app
           tar zxvf release.gz
