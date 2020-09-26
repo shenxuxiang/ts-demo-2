@@ -79,8 +79,8 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER_NAME }}
-        key: ${{ secrets.JERRY_SERVER }}
+        password: ${{ secrets.PASS_WORD }}
         port: 22
-        # script: |
-        #   cd /root
-        #   tar zxvf release.gz
+        script: |
+          cd /app
+          tar zxvf release.gz
