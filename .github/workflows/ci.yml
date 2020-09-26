@@ -27,7 +27,7 @@ on:
     # branches:
     # - master
     tags:
-    - 'v*'
+    - v*
 
 jobs:
   build-and-deploy:
@@ -54,13 +54,12 @@ jobs:
 
     - name: Create Release
       id: create-release
-      uses: actions/create-release@v1
-      env: 
+      uses: actions/create-release@master
+      env:
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       with: 
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
-        body_path: dist
         draft: false
         prerelease: false
 
