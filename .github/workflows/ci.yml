@@ -83,4 +83,6 @@ jobs:
         port: 22
         script: |
           cd app
+          wget https://github.com/shenxuxiang/ts-demo-2/releases/latest/download/release.gz
           tar zxvf release.gz
+          rm -rf release.gz
