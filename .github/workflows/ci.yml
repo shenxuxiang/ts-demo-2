@@ -81,6 +81,6 @@ jobs:
         username: ${{ secrets.USER_NAME }}
         key: ${{ secrets.JERRY_SERVER }}
         port: 22
-        script: |
-          cd /root/www
-          tar zxvf release.gz
+        # script: |
+        #   cd /root
+        #   tar zxvf release.gz
