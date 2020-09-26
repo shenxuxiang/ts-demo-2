@@ -1,6 +1,6 @@
 // html 环境变量
 const raw = {
-  PUBLIC_PATH: '/',
+  PUBLIC_PATH: process.env.NODE_ENV === 'development' ? '/' : 'ts-demo-2/',
   SERVER_ORIGIN: 'http\:\/\/localhost\:3001\/',
 };
 

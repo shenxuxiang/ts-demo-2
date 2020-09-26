@@ -21,48 +21,50 @@
 #         FOLDER: dist
 
 
-# name: Build & Deploy
-# on:
-#   push:
-#     branches:
-#     - master
-#     paths:
-#     - "src/**"
-
-# jobs:
-#   build-and-deploy:
-#     name: Build And Deploy
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout
-#       uses: actions/checkout@v1
-
-#     - name: Build
-#       run: npm install && npm run build
-
-#     - name: Deploy
-#       uses: JamesIves/github-pages-deploy-action@releases/v3
-#       with:
-#         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-#         BRANCH: gh-pages
-#         FOLDER: dist
-
-
-name: My Continue Integration
-on: 
+name: Build & Deploy
+on:
   push:
-    branches: 
-    - master
-    
-env:
-  SERVER: production
+    # branches:
+    # - master
+    tags:
+    - 'v*'
 
 jobs:
-  first-job:
-    name: my first job
+  build-and-deploy:
+    name: Build And Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Output Context
-      run: echo $SERVER $NAME_ID ${{ github.sha }}
-    env:
-      NAME_ID: sxx_7258615
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Build
+      run: npm install && npm run build
+
+    # - name: Deploy
+    #   uses: JamesIves/github-pages-deploy-action@releases/v3
+    #   with:
+    #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    #     BRANCH: gh-pages
+    #     FOLDER: dist
+
+    name: Create Release
+    id: create-release
+    uses: actions/create-release@master
+    env: 
+      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    with: 
+      tag_name: ${{ git.ref }}
+      release_name: Release ${{ git.ref }}
+      draft: false
+      prerelease: false
+
+    name: Upload Release Assets
+    id: upload-release-assets
+    uses: actions/upload-release-assets@master
+    env: 
+      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    with:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
+      asset_path: ./dist
+      asset_name: dist
+      

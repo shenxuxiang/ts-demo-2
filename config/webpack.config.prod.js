@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'production';
+
 const webpack = require('webpack');
 const path = require('path');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
@@ -10,8 +12,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const { PUBLIC_PATH } = stringified;
-
+const { PUBLIC_PATH } = raw;
+console.log(stringified, PUBLIC_PATH)
 module.exports = {
     mode: 'production',
     entry: path.resolve('src/index.tsx'),
