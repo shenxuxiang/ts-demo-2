@@ -24,8 +24,8 @@
 name: Build & Deploy
 on:
   push:
-    branches:
-    - master
+    # branches:
+    # - master
     tags:
     - 'v*'
 
@@ -38,7 +38,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Build
-      # uses: actions/setup-node@master
+      uses: actions/setup-node@master
       run: |
         npm install
         npm run build
