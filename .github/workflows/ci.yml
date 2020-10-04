@@ -42,16 +42,8 @@ jobs:
     - run: |
         npm install
         npm run build
-        tar -zcvf release.gz ./dist
+        tar -zcvf release.gz ./dist/**
       
-
-    # - name: Deploy
-    #   uses: JamesIves/github-pages-deploy-action@releases/v3
-    #   with:
-    #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    #     BRANCH: gh-pages
-    #     FOLDER: dist
-
     - name: Create Release
       id: create-release
       uses: actions/create-release@master
@@ -86,3 +78,4 @@ jobs:
           wget https://github.com/shenxuxiang/ts-demo-2/releases/latest/download/release.gz
           tar zxvf release.gz
           rm -rf release.gz
+          
