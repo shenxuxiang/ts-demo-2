@@ -29,7 +29,8 @@ app.use(async (req, res, next) => {
   } else if (method === 'POST') {
     req.body = await getRequestBody(req, res);
   }
-  console.log(req.body);
+  console.log(req.body.head_commit);
+  console.log(req.body.ref);
   next();
 });
 
