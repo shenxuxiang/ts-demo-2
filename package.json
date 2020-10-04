@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "node ./mock/index.js",
     "deploy": "gh-pages -d dist",
     "build": "webpack --config config/webpack.config.prod.js",
     "start": "webpack-dev-server --config config/webpack.config.dev.js",

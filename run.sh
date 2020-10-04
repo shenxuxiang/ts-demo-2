@@ -3,7 +3,6 @@
 
 git pull origin master
 
-echo "已经拉取到了最新的代码"
-npm run build
+npm install
 
-echo "本地构建完成"
+npm run build
