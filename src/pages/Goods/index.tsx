@@ -11,7 +11,7 @@ interface IState {
 export default class Goods extends Component<IProps, IState> {
   public render() {
     return (
-      <div>Hello World</div>
+      <div>Hello World我修改了一点东西</div>
     );
   }
 }
