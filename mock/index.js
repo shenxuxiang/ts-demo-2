@@ -39,10 +39,8 @@ app.use(async (req, res, next) => {
     // 字符串的格式是这样：refs/heads/dev
     const branch = req.body.ref.slice(11);
     const commitMsg =  req.body.head_commit.message;
-    console.log(req.body);
-    console.log(branch, commitMsg);
     if (branch !== 'master' || commitMsg.search(/{{\s?build\s?}}/) < 0) return next();
-    console.log('开始执行');
+    console.log(chalk.skyblue(`正在构建，～ 【commitMsg】`));
     // 执行 shell 命令
     const worker = child_process.spawn('sh', ['./run.sh'], { cwd: path.join(__dirname, '../'), shell: true });
     worker.on('close', function() {
