@@ -40,7 +40,8 @@ app.use(async (req, res, next) => {
     const branch = req.body.ref.slice(11);
     const commitMsg =  req.body.head_commit.message;
     if (branch !== 'master' || commitMsg.search(/{{\s?build\s?}}/) < 0) return next();
-    console.log(chalk.blue(`正在构建，～ 【commitMsg】`));
+    console.log(chalk.blue(`正在构建...\n`));
+    console.log(`【${commitMsg}】`);
     // 执行 shell 命令
     const worker = child_process.spawn('sh', ['./run.sh'], { cwd: path.join(__dirname, '../'), shell: true });
     worker.on('close', function() {
