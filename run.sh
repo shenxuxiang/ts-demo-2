@@ -7,4 +7,6 @@ npm install
 
 npm run build
 
-tar -czvf release0.0.1.tar.gz ./dist/**
+cd ../
+
+tar -czvf release.tar.gz ./ts-demo-2/dist/**
