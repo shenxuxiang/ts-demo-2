@@ -1,93 +1,59 @@
 const path = require('path');
 const fs = require('fs');
-const zlib = require('zlib');
 const child_process = require('child_process');
 const parseURL = require('url').parse;
+const chalk = require('chalk');
+const zlib = require('zlib');
 const Application = require('./application');
+const staticMiddleware = require('./middleware/static');
+const queryBodyMIddleware = require('./middleware/query-body');
+
 const app = new Application();
 
-function getRequestBody(req, res) {
-  const bufs = [];
-  return new Promise((resolve, reject) => {
-    req.on('data', function(chunk) {
-      bufs.push(chunk);
-    });
-    req.on('end', function() {
-      const buf = JSON.parse(Buffer.concat(bufs).toString());
-      return resolve(buf);
-    });
-    req.on('error', function() {
-      return reject();
-    });
-  });
-}
-// static
-app.use(async (req, res, next) => {
-  const url = req.url;
-  const { ext, base } = path.parse(url);
-  let file;
-  if (/\.js$/.test(ext)) {
-    file = path.resolve('dist/static/js', base);
-    res.writeHead(200, { 'Content-Type': 'text/javascript' });
-    const context = fs.readFileSync(file);
-    res.end(context);
-    return;
-  } else if (/\.css$/.test(ext)) {
-    file = path.resolve('dist/static/css', base);
-    res.writeHead(200, { 'Content-Type': 'text/css' });
-    const context = fs.readFileSync(file);
-    res.end(context);
-    return;
-  } else if (/\.(jpe?g|png|bmp|gif)$/.test(ext)) {
-    file = path.resolve('dist/static/images', base);
-    res.writeHead(200, { 'Content-Type': `image/${ext.slice(1)}` });
-    const context = fs.readFileSync(file);
-    res.end(context);
-    return;
-  }
-  next();
-})
+// 静态路由系统
+const static = staticMiddleware(path.resolve('dist/static'));
+app.use(static);
+
 // 获取请求的参数
-app.use(async (req, res, next) => {
-  const url = req.url;
-  const method = req.method;
-  const { query } = parseURL(url, true);
-  if (method === 'GET') {
-    req.body = query;
-  } else if (method === 'POST') {
-    req.body = await getRequestBody(req, res);
-  }
-  next();
-});
+const queryBody = queryBodyMIddleware();
+app.use(queryBody);
+
 // 展示当前页面内容
 app.use(async (req, res, next) => {
   const { url, method } = req;
-  console.log(url);
   const { pathname } = parseURL(url, true);
   if (pathname === '/index.html' && method === 'GET') {
-    const html = fs.readFileSync(path.resolve('dist/index.html'));
-    return res.end(html);
+    res.writeHead(200, {
+      'Content-Type': 'text/html', 
+      'Content-Encoding': 'Gzip',
+    });
+    const readStream = fs.createReadStream(path.resolve('dist/index.html'));
+    return readStream.pipe(zlib.createGzip()).pipe(res);
   }
   next();
 });
-// 执行发布
-app.use(async (req, res, next) => {
-  if (req.method === 'GET') return next();
-  console.log(req.url);
-  console.log(req.body.head_commit);
-  console.log(req.body.ref);
 
-  // 执行 shell 命令
-  const worker = child_process.spawn('sh', ['./run.sh'], { cwd: path.join(__dirname, '../'), shell: true });
-  worker.on('close', function(code, signal) {
-    console.log('子进程已经关闭了', code, signal);
-  });
-  worker.on('exit', function(code, signal) {
-    console.log('子进程已经退出', code, signal);
-  });
+// 执行打包和发布
+app.use(async (req, res, next) => {
+  if (req.method === 'POST' && req.url === '/webhook') {
+    // 字符串的格式是这样：refs/heads/dev
+    const branch = req.body.ref.slice(11);
+    const commitMsg =  req.body.head_commit.message;
+    if (branch !== 'master' || commitMsg.search(/{{\s?build\s?}}/) < 0) return next();
+  
+    // 执行 shell 命令
+    const worker = child_process.spawn('sh', ['./run.sh'], { cwd: path.join(__dirname, '../'), shell: true });
+    worker.on('close', function() {
+      console.log(chalk.green('构建成功！'));
+    });
+    worker.on('error', function() {
+      console.log(chalk.red('构建失败～'));
+    });
+  }
+
   next();
 });
 
 app.listen(3001, function() {
-  console.log('start success');
-})
+  console.log(chalk.green('service opened successfully'));
+});

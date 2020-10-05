@@ -17,7 +17,7 @@ class Application extends EventEmitter {
     const fns = this.compose(this.middleware);
     fns(req, res)
       .then(() => {
-        res.end(res.result || undefined);
+        if (res.result) res.end(res.result);
       })
       .catch((error) => {
         console.log(error);
