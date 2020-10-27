@@ -27,14 +27,18 @@
     // 包含导入的模块。json的扩展。
     "resolveJsonModule": true,
     // 无条件地为未解决的文件发出导入。
-    "isolatedModules": true,
+    // "isolatedModules": true,
     // 不要发出输出。
     "noEmit": true,
     // 指定JSX代码生成:'preserve'、'react'或' reactive -native'。
     "jsx": "react",
+    "strictNullChecks": false,
   },
   "include": [ // 包含目录
     "src/**/*.ts",
     "src/**/*.tsx",
+    "images.t.ts",
+    "global.t.ts",
+    "home.t.ts"
   ]
 }
